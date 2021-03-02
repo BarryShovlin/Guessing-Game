@@ -3,9 +3,9 @@
 Main();
 
 
+
 void Main()
 {
-
     Console.WriteLine("Can you guess the secret number?");
     Console.WriteLine("--------------------------------");
 
@@ -73,7 +73,7 @@ void Main()
     int GuessNumber = Int32.Parse(Guess);
 
 
-    while (currentGuess != maxGuesses)
+    while (currentGuess < maxGuesses)
     {
         if (GuessNumber != SecretNumber)
         {
@@ -87,7 +87,7 @@ void Main()
                 Console.WriteLine("Too High");
 
             }
-            Console.WriteLine("Try again");
+            Console.WriteLine("Try again, ya big dumb babboon");
             Console.WriteLine($"you have {maxGuesses - currentGuess} chances left");
             currentGuess++;
             Guess = Console.ReadLine();
@@ -97,9 +97,16 @@ void Main()
         {
             Console.WriteLine("You got it!  Nice work!");
             break;
+
+        }
+        if (currentGuess == maxGuesses)
+        {
+            Console.WriteLine($"The correct answer was {SecretNumber}");
         }
     }
+
 }
+
 
 
 
