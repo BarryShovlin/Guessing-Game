@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 
 Main();
 
@@ -10,21 +9,100 @@ void Main()
     Console.WriteLine("Can you guess the secret number?");
     Console.WriteLine("--------------------------------");
 
-    void Guess()
-    {
-        string Guess = Console.ReadLine();
-        int GuessNumber = Int32.Parse(Guess);
-        int SecretNumber = 42;
+    var random = new Random();
+    int SecretNumber = random.Next(1, 100);
+    int guessNumber = 1;
+    int maxGuesses = 4;
+    int currentGuess = maxGuesses - 1;
+    int diff;
+    int chosenDifficulty = 0;
 
-        if (GuessNumber == SecretNumber)
+    while (chosenDifficulty == 0)
+    {
+        Console.WriteLine("Choose a difficulty:");
+        Console.WriteLine("[1] Cheater");
+        Console.WriteLine("[2] Easy");
+        Console.WriteLine("[3] Medium");
+        Console.WriteLine("[4] Hard");
+
+        Console.WriteLine("Type selection here:");
+        string difficulty = Console.ReadLine();
+        bool newDifficulty = Int32.TryParse(difficulty, out diff);
+
+        if (newDifficulty)
         {
-            Console.WriteLine("You got it!  Nice work!");
+            if (diff < 5 && diff > 0)
+            {
+                chosenDifficulty = diff;
+                switch (chosenDifficulty)
+                {
+                    case 1:
+                        maxGuesses = 100;
+                        Console.WriteLine("You chose difficulty: Cheater");
+                        Console.WriteLine();
+                        break;
+                    case 2:
+                        maxGuesses = 8;
+                        Console.WriteLine("You chose difficulty: Easy");
+                        Console.WriteLine();
+                        break;
+                    case 3:
+                        maxGuesses = 6;
+                        Console.WriteLine("You chose difficulty: Medium");
+                        Console.WriteLine();
+                        break;
+                    case 4:
+                        maxGuesses = 4;
+                        Console.WriteLine("You chose difficulty: Hard");
+                        Console.WriteLine();
+                        break;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Please enter a valid difficulty [1-4]");
+                Console.WriteLine();
+            }
         }
         else
         {
-            Console.WriteLine("Try again, ya big dumb babboon");
+            Console.WriteLine("Please enter a valid difficulty [1-4]");
+            Console.WriteLine();
+        }
+
+    }
+    Console.WriteLine("Take a guess!");
+    string Guess = Console.ReadLine();
+    int GuessNumber = Int32.Parse(Guess);
+
+
+    while (guessNumber < maxGuesses)
+    {
+        if (GuessNumber != SecretNumber)
+        {
+            if (GuessNumber < SecretNumber)
+            {
+                Console.WriteLine("Too Low!");
+            }
+            else
+            {
+                Console.WriteLine("Too High");
+            }
+            Console.WriteLine("Try again");
+            Console.WriteLine($"you have {currentGuess--} chances left");
+            guessNumber++;
+            Guess = Console.ReadLine();
+            GuessNumber = Int32.Parse(Guess);
+        }
+        else
+        {
+            Console.WriteLine("You got it!  Nice work!");
+            break;
         }
     }
-    Guess();
+
+
 }
+
+
 
