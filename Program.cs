@@ -11,9 +11,8 @@ void Main()
 
     var random = new Random();
     int SecretNumber = random.Next(1, 100);
-    int guessNumber = 1;
-    int maxGuesses = 4;
-    int currentGuess = maxGuesses - 1;
+    int guessNumber = 4;
+    int maxGuesses = 0;
     int diff;
     int chosenDifficulty = 0;
 
@@ -83,14 +82,15 @@ void Main()
             if (GuessNumber < SecretNumber)
             {
                 Console.WriteLine("Too Low!");
+                guessNumber++;
             }
             else
             {
                 Console.WriteLine("Too High");
+                guessNumber++;
             }
             Console.WriteLine("Try again");
-            Console.WriteLine($"you have {currentGuess--} chances left");
-            guessNumber++;
+            Console.WriteLine($"you have {maxGuesses - guessNumber} chances left");
             Guess = Console.ReadLine();
             GuessNumber = Int32.Parse(Guess);
         }
