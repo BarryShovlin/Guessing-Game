@@ -26,7 +26,7 @@ void Main()
         Console.WriteLine("(3) Medium");
         Console.WriteLine("(4) Hard");
 
-        Console.WriteLine("Type selection here:");
+        Console.Write("> ");
         string difficulty = Console.ReadLine();
         bool newDifficulty = Int32.TryParse(difficulty, out diff);
 
@@ -99,7 +99,11 @@ void Main()
             break;
 
         }
-        if (currentGuess == maxGuesses)
+        if (currentGuess == maxGuesses && currentGuess != SecretNumber)
+        {
+            Console.WriteLine("You got it!  Nice work!");
+        }
+        else
         {
             Console.WriteLine($"The correct answer was {SecretNumber}");
         }
